@@ -1,0 +1,127 @@
+* {
+   transition: all 0.3s ease-in-out;
+}
+
+.nav {
+   background-color: #FF4646;
+   box-shadow: -5px 5px 1em rgba( 100, 100, 100, 0.5 );
+   position: fixed;
+   display: block;
+   width: 120%;
+   padding: 2%;
+   font-size: 120%;
+   top: 0px; left: 0px;
+   z-index: 2;
+}
+
+body {
+   background-color: #F2F2F2;
+   padding: 5%;
+}
+
+btn {
+   background-color: #FF4646;
+   border-radius: 5px;
+   display: inline-block;
+   min-width: 20%;
+   text-align: center;
+   padding: 1.5%;
+}
+
+h1, h2, h3, hr {
+   margin: 0px;
+   margin-bottom: 5px;
+   border: none;
+   border-bottom: 2px solid #FF4646;
+}
+
+p {
+   margin: 0px;
+   margin-bottom: 10px;
+   font-size: 90%;
+   color: #515151;
+}
+
+input[type="text"], textarea, dialog {
+   border: 1.5px solid #FF4646;
+   border-radius: 10px;
+   display: block;
+   width: 90%;
+   padding: 1.5%;
+   margin: 7px;
+}
+
+dialog {
+   width: 90%;
+   box-shadow: 0px 0px 20em #000;
+   padding: 3%;
+}
+
+input[type="text"]:focus, textarea:focus {
+   outline: none;
+}
+
+btn:active, .nav:active {
+   background-color: #FF5E5E;
+}
+
+#text {
+   height: 300px;
+}
+
+term {
+   display: block;
+   width: 90%;
+   height: 400px;
+   overflow-x: auto;
+   overflow-y: auto;
+   color: #FFF;
+   background-color: #000;
+   padding: 2%;
+   border-left: 2.5px solid #FF4646;
+   margin: 5px;
+}
+
+#kogasa, #reimu, #flan {
+   display: block;
+   position: fixed;
+   transition: all 0.1s ease;
+   transform-origin: left bottom;
+   transform: rotate(15deg);
+   z-index: 5;
+   top: 75%;
+   left: -15%;
+   filter: drop-shadow( 0.5em 0.5em 0px #EF56FF55 );
+}
+
+#kogasa:active {
+   top: 76%;
+}
+
+#reimu {
+   top: 45%;
+   left: 100%;
+   transform: rotate(-40deg);
+   filter: drop-shadow( 0.5em 0.5em 0px #FF464655 );
+}
+
+#reimu:active {
+   top: 44%;
+}
+
+#flan {
+   top: -520px;
+   left: 100%;
+   transform: rotate(-190deg);
+   z-index: 1;
+   filter: drop-shadow( -0.5em -0.5em 0px #FF794655 );
+}
+
+#flan:hover {
+   top: -350px;
+}
+
+/*#kogasa:hover {
+   transform: rotate(5deg);
+   left: 2%;
+}*/
