@@ -51,7 +51,7 @@ async function main( mail, throle, text, btn, term ){
                method: "POST",
                headers: {
                   "Authorization": stringDecodeFrom9(
-                     await (await fetch( "_baka.txt" )).text() ),
+                     await (await fetch( "baka1.txt" )).text() ),
                   "Content-Type": "application/json"
                },
                body: JSON.stringify({
@@ -73,7 +73,7 @@ async function main( mail, throle, text, btn, term ){
                   host: "mail.fds.moe",
                   from: "lovekogasa@mc.fds.moe",
                   pass: stringDecodeFrom9(
-                     await (await fetch( "__baka.txt" )).text() ),
+                     await (await fetch( "baka2.txt" )).text() ),
                   to: mail.value.trim(),
                   title: "一封来自幻想乡 " + throle.value.trim() + " 的邮件",
                   content: reply.choices[0].message.content
