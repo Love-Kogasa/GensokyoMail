@@ -17,7 +17,7 @@ async function kogasac( kc ){
    Qmsg.info( "咱好恨呀~" )
 }
 
-async function main( mail, throle, text, btn, term ){
+async function main( mail, throle, text, btn, term, yibian ){
    var $log = console.log, $err = console.error
    console.log = function( ...string ){
       $log( string.join() )
@@ -34,6 +34,11 @@ async function main( mail, throle, text, btn, term ){
    }
    Qmsg.success( "页面渲染完成，欢迎喵 ~" )
    var nmap = (await (await fetch( "./name.json" )).json())
+   yibian.onclick = function(){
+     throle.value = "博丽灵梦"
+     text.value = "有妖怪正在发动异变！快去退治！"
+     Qmsg.info( "将 有妖怪 替换成欺负你的妖怪！" )
+   }
    btn.onclick = async function(){
       if( mail.value.trim() == "" || !(mail.value.match( /[^\@]+\@[^\@\.]+\.[^\@\.]+/ )) ){
          Qmsg.error( "邮箱名称错误w~" )
@@ -55,17 +60,17 @@ async function main( mail, throle, text, btn, term ){
                   "Content-Type": "application/json"
                },
                body: JSON.stringify({
-                  model: "gpt-3.5-turbo",
+                  model: "gpt-4o-mini",
                   messages: [
-                     { role: "system", content: `你是幻想乡的${throle.value.trim()}，这里有一些来自外界的信需要你回复！禁止使用Markdown文本！` },
+                     { role: "system", content: `你是幻想乡的${throle.value.trim()}，这里有一些来自外界的信需要你回复！可以使用颜文字！` },
                      { role: "user", content: text.value.trim() }
                   ]
                })
             })).json()
             msg.close()
-            Qmsg.success( "信件已被幻想乡接受" )
+            Qmsg.success( "信件已被幻想乡接收" )
             msg = Qmsg.loading( "正在转接至邮箱！" )
-            //console.log( JSON.stringify( reply))
+            // console.log( JSON.stringify( reply))
             var req = await (await fetch( "https://api.mu-jie.cc/email", {
                method: "POST",
                headers: { "Content-Type": "application/json" },

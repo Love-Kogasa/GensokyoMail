@@ -11,11 +11,11 @@
     <script src="libs/message.min.js"></script>
     <script src="app.js"></script>
   </head>
-  <body onload="main( mail, thr, text, send, term )">
+  <body onload="main( mail, thr, text, send, term, yibian )">
     <nav class="nav">☯ Gensokyo Mail</nav>
     <br><br>
     <h2>幻想乡邮箱</h2>
-    <p>外界通往幻想乡的邮箱awa，通过邮箱向你喜欢的幻想乡角色发送邮件吧！为了提升大家的使用体验，咱用了付费的API，所以呢请节约使用！<br>图标: Pixiv 110969269 by 那奈はな<br>反馈邮箱: 1983997053@qq.com</p>
+    <p>外界通往幻想乡的邮箱awa，通过邮箱向你喜欢的幻想乡角色发送邮件吧！<br>图标: Pixiv 110969269 by 那奈はな<br>反馈邮箱: 1983997053@qq.com</p>
     <input type="text" id="mail" placeholder="你的邮箱">
     <input type="text" id="thr" placeholder="车万角色名称">
     <!--<dialog open id="dg">
@@ -24,7 +24,10 @@
       <div align="right"><btn onclick="dg.close()">我已知晓</btn></div>
     </dialog>-->
     <textarea id="text" placeholder="邮件正文"></textarea><br>
-    <div align="right"><btn id="send">发送</btn></div><br><hr>
+    <div align="right">
+      <btn id="yibian">被幻想乡角色欺负了? 点我</btn>
+      <btn id="send">发送</btn>
+    </div><br><hr>
     本页已被查看了 <i><span id="finicount_views"></span></i> 次<br>
     灵梦被拍了 <i><span id="rc">拍打灵梦查看</span></i> 次awa<br>
     小伞被拍了 <i><span id="kc">拍打小伞查看</span></i> 次awa
