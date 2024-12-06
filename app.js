@@ -46,6 +46,14 @@ async function main( mail, throle, text, btn, term, yibian ){
       } else if( throle.value.trim() == "" || !isTrueName( nmap, throle.value.trim() ) ){
          Qmsg.error( "未在幻想乡查找到该邮箱w~" )
          console.error( "未在幻想乡查找到该邮箱" )
+         for( let no of nmap ){
+            for( let i of Object.keys(no) ){
+               let v = no[i]
+               if( v.indexOf( throle.value.trim() ) > -1 ){
+                  console.error( "您在找的是不是: " + v )
+               }
+            }
+         }
       } else if( text.value.trim() == "" ){
          Qmsg.error( "没有找到正文w~" )
          console.error( "正文不能为空" )
