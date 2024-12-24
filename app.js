@@ -34,6 +34,10 @@ async function main( mail, throle, text, btn, term, yibian ){
    }
    Qmsg.success( "页面渲染完成，欢迎喵 ~" )
    var nmap = (await (await fetch( "./name.json" )).json())
+   var today = formatDate( new Date() ).date
+   if( isHoliday( today ) ){
+     today += " , " + getFestival( today )
+   }
    yibian.onclick = function(){
      throle.value = "博丽灵梦"
      text.value = "有妖怪正在发动异变！快去退治！"
@@ -71,7 +75,7 @@ async function main( mail, throle, text, btn, term, yibian ){
                   model: "gpt-4o-mini",
                   messages: [
                      { role: "system", content: `你是幻想乡的${throle.value.trim()}，这里有一些来自外界的信需要你回复！可以使用颜文字！` },
-                     { role: "user", content: text.value.trim() }
+                     { role: "user", content: "[ " + today + " ]\n" + text.value.trim() }
                   ]
                })
             })).json()
