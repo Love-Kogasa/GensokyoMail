@@ -1,0 +1,29 @@
+@media only screen and (min-width: 1024px) {
+  #kogasa {
+      top: 6%;
+      left: -5%;
+      transform: rotate(10deg) scale(0.6);
+      filter: drop-shadow(0.5em 0.5em 0px #EF56FF55);
+  }
+
+  #reimu {
+      top: -20%;
+      left: 95%;
+      transform: rotate(-30deg) scale(0.6);
+      filter: drop-shadow(0.5em 0.5em 0px #FF464655);
+  }
+
+  #kogasa:active {
+      top: 7%;
+      left: -5%;
+      transform: rotate(10deg) scale(0.6);
+      filter: drop-shadow(0.5em 0.5em 0px #EF56FF55);
+  }
+
+  #reimu:active {
+      top: -21%;
+      left: 95%;
+      transform: rotate(-30deg) scale(0.6);
+      filter: drop-shadow(0.5em 0.5em 0px #FF464655);
+  }
+}
