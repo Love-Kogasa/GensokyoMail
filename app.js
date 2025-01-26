@@ -1,3 +1,4 @@
+var other = ""
 function isTrueName( table, n ){
    for( let name of table){
       for( let k of Object.keys(name) ){
@@ -17,7 +18,7 @@ async function kogasac( kc ){
    Qmsg.info( "咱好恨呀~" )
 }
 
-async function main( mail, throle, text, btn, term, yibian ){
+async function main( mail, throle, text, btn, term, yibian, gc, chance ){
    var $log = console.log, $err = console.error
    console.log = function( ...string ){
       $log( string.join() )
@@ -32,11 +33,41 @@ async function main( mail, throle, text, btn, term, yibian ){
       term.appendChild( font )
       term.appendChild( document.createElement( "br" ) )
    }
-   Qmsg.success( "页面渲染完成，欢迎喵 ~" )
    var nmap = (await (await fetch( "./name.json" )).json())
+   var gifts = (await (await fetch( "./gifts.json" )).json())
    var today = formatDate( new Date() ).date
    if( isHoliday( today ) ){
      today += " , " + getFestival( today )
+   }
+   for( let gift of gifts ){
+     let icon = new Image()
+     icon.className = "gift"
+     icon.data = "[附件: {名称: \"" + gift.name + "\", 介绍: \"" + gift.description + "\"}]\n"
+     icon.src = gift.icon
+     icon.onclick = () => {
+       other += (icon.data = loadstring( icon.data, {
+         role: throle.value.trim()
+       }))
+       Qmsg.info( gift.name + " +1" )
+       let delate = icon.cloneNode()
+       var newitem = new Audio()
+       newitem.src = "./sounds/Item.mp3"
+       newitem.play()
+       delate.onclick = () => {
+         other = other.replace( icon.data, "" )
+         Qmsg.info( gift.name + " -1" )
+         chance.removeChild( delate )
+         var rm = new Audio()
+         rm.src = "./sounds/btn.mp3"
+         rm.play()
+       }
+       if( chance.children.length >= 20 ){
+         Qmsg.error( "最多携带20个礼物！" )
+       } else {
+         chance.appendChild( delate )
+       }
+     }
+     gc.appendChild( icon )
    }
    yibian.onclick = function(){
      throle.value = "博丽灵梦"
@@ -75,7 +106,7 @@ async function main( mail, throle, text, btn, term, yibian ){
                   model: "gpt-4o-mini",
                   messages: [
                      { role: "system", content: `你是幻想乡的${throle.value.trim()}，这里有一些来自外界的信需要你回复！可以使用颜文字！` },
-                     { role: "user", content: "[ " + today + " ]\n" + text.value.trim() }
+                     { role: "user", content: "[ " + today + " ]\n" + text.value.trim() + "\n" + other }
                   ]
                })
             })).json()
@@ -108,4 +139,5 @@ async function main( mail, throle, text, btn, term, yibian ){
          }
       }
    }
+   Qmsg.success( "页面渲染完成，欢迎喵 ~" )
 }

@@ -1,0 +1,13 @@
+[{ "name": "Bomb",
+    "description": "一打开就会爆炸的小炸弹",
+    "icon": "gifts/bomb.png"
+},{ "name": "蒜",
+    "description": "一头蒜(食物)(补充设定: 吸血鬼不能吃大蒜，但没必要说出来)",
+    "icon": "gifts/garlic.png"
+},{ "name": "速冻水饺",
+    "description": "中国传统美食水饺",
+    "icon": "gifts/cn_dumplings.png"
+},{ "name": "啤酒",
+   "description": "一杯啤酒(补充设定: 幻想乡的人们都很喜欢喝酒，但没必要说出来)",
+   "icon": "gifts/beer.png"
+}]

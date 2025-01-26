@@ -11,13 +11,29 @@
     <script src="libs/message.min.js"></script>
     <script src="libs/npm.js"></script>
     <script src="libs/festival.min.js"></script>
+    <script src="libs/template.js"></script>
     <script src="app.js"></script>
   </head>
-  <body onload="main( mail, thr, text, send, term, yibian )">
+  <body onload="main( mail, thr, text, send, term, yibian, glist, chance )">
     <nav class="nav">☯ Gensokyo Mail</nav>
+    <div id="gifts" style="display: none" class="dialog">
+      <h2>Gifts</h2>
+      <p>在这里选择你想要送的礼物吧w<br>
+      <s>过年了，要不要给红魔馆送车大蒜</s><br>
+      本功能还在测试阶段！</p>
+      <h3>可选择</h3>
+      <p>在这里选择你需要的awa，可以重复选择<br>
+      向我致信以投稿物品</p>
+      <div id="glist"></div>
+      <h3>小货车</h3>
+      <p>点击图标清除喵</p>
+      <div id="chance"></div>
+      <div align="right"><btn onclick="( gifts.style.display = 'none' )">关闭</btn></div>
+    </div>
     <br><br>
     <h2>幻想乡邮箱</h2>
     <p>外界通往幻想乡的邮箱awa，通过邮箱向你喜欢的幻想乡角色发送邮件吧！<br>图标: Pixiv 110969269 by 那奈はな<br>反馈邮箱: 1983997053@qq.com</p>
+    <btn onclick="( gifts.style.display = 'block' )">礼物盒 全部免费哦 >_< </btn>
     <input type="text" id="mail" placeholder="你的邮箱">
     <input type="text" id="thr" placeholder="车万角色名称">
     <!--<dialog open id="dg">
