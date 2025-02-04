@@ -14,8 +14,28 @@
     <script src="libs/template.js"></script>
     <script src="app.js"></script>
   </head>
-  <body onload="main( mail, thr, text, send, term, yibian, glist, chance )">
+  <body onload="main( mail, thr, text, send, term, yibian, glist, chance, upm, file, addons )">
     <nav class="nav">☯ Gensokyo Mail</nav>
+    <div id="mods" style="display: none" class="dialog">
+      <h2>Addons</h2>
+      <p>加载或创作Addon，点击上传以加载<br>本功能为测试功能，不确保稳定性！</p>
+      <h3>Addon市场</h3>
+      <p>GensokyoMail 官方addon市场！<br>
+      您可以发布Addon到这里！</p>
+      <div style="height: 10ch; overflow: auto;">
+        敬请期待！
+        <!--<div class="addon">
+          <img class=icon src="Test/g.png">
+          <span class=title>标题</span>
+          <p>这里是addon的介绍</p>
+        </div>-->
+      </div>
+      <h3>激活的Addon</h3>
+      <p>已激活的Addon在这里，重新加载以卸载所有模组!<br>部分Addon可能会因为新增HTML导致持续加载，<s>这是彼阳的bug</s></p>
+      <div id="addons" style="height: 10ch; overflow: auto;"></div>
+      <input type="file" id="file"><btn id="upm">Upload</btn>
+      <div align="right"><btn onclick="( mods.style.display = 'none' )">关闭</btn></div>
+    </div>
     <div id="gifts" style="display: none" class="dialog">
       <h2>Gifts</h2>
       <p>在这里选择你想要送的礼物吧w<br>
@@ -24,7 +44,7 @@
       <h3>可选择</h3>
       <p>在这里选择你需要的awa，可以重复选择<br>
       向我致信以投稿物品</p>
-      <div id="glist"></div>
+      <div id="glist" style="max-height: 10ch; overflow-y: auto;"></div>
       <h3>小货车</h3>
       <p>点击图标清除喵</p>
       <div id="chance"></div>
@@ -33,6 +53,7 @@
     <br><br>
     <h2>幻想乡邮箱</h2>
     <p>外界通往幻想乡的邮箱awa，通过邮箱向你喜欢的幻想乡角色发送邮件吧！<br>图标: Pixiv 110969269 by 那奈はな<br>反馈邮箱: 1983997053@qq.com</p>
+    <btn onclick="( mods.style.display = 'block' )">AddonS / ModS</btn><br>
     <btn onclick="( gifts.style.display = 'block' )">礼物盒 全部免费哦 >_< </btn>
     <input type="text" id="mail" placeholder="你的邮箱">
     <input type="text" id="thr" placeholder="车万角色名称">
@@ -43,7 +64,7 @@
     </dialog>-->
     <textarea id="text" placeholder="邮件正文"></textarea><br>
     <div align="right">
-      <btn id="yibian">被幻想乡角色欺负了? 点我</btn>
+      <btn id="yibian">被幻想乡角色欺负了? 点我</btn><br>
       <btn id="send">发送</btn>
     </div><br><hr>
     本页已被查看了 <i><span id="finicount_views"></span></i> 次<br>

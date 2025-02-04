@@ -144,3 +144,23 @@ term {
    transform: rotate(5deg);
    left: 2%;
 }*/
+
+.addon {
+  background-color: #FF4646;
+  border-radius: 5px;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 0.2px;
+  padding-top: 0.2px;
+}
+
+.addon > .icon {
+  height: 5ch;
+  border-radius: 2px;
+}
+
+.addon > .title {
+  font-size: 120%;
+  margin: 0px;
+  display: block;
+}

@@ -1,4 +1,6 @@
+// shit hill :(
 var other = ""
+var cs = {}
 function isTrueName( table, n ){
    for( let name of table){
       for( let k of Object.keys(name) ){
@@ -6,6 +8,107 @@ function isTrueName( table, n ){
       }
    }
    return false
+}
+
+function readFile( file ){
+  return new Promise( function( res, rej ){
+    var reader = new FileReader()
+    reader.onload = ( e ) => res( e.target.result )
+    reader.onerror = rej
+    reader.readAsText( file )
+  })
+}
+
+async function modloader( file, addons, glist, chance ){
+  var mod = JSON.parse( await readFile( file ) ), functions = {
+    new_gift( data ){
+      // for( let key of Object.keys( datas )){
+        // data = datas[key]
+        var gift = new Image()
+        gift.src = data.icon
+        gift.className = "gift"
+        gift.data = "[附件: {名称: \"" + data.name + "\", 介绍: \"" + data.description + "\"}]\n"
+        gift.onclick = () => {
+          Qmsg.info( data.name + " +1" )
+          let delate = gift.cloneNode()
+          var newitem = new Audio()
+          newitem.src = "./sounds/Item.mp3"
+          newitem.play()
+          delate.onclick = () => {
+            other = other.replace( gift.data + "\n", "" )
+            Qmsg.info( data.name + " -1" )
+            chance.removeChild( delate )
+            var rm = new Audio()
+            rm.src = "./sounds/btn.mp3"
+            rm.play()
+          }
+          if( chance.children.length >= 20 ){
+            Qmsg.error( "最多携带20个礼物！" )
+          } else {
+            chance.appendChild( delate )
+            other += gift.data + "\n"
+          }
+        }
+        glist.appendChild( gift )
+      // }
+    },
+    new_character( data ){
+      cs[ data.name ] = cs[ data.character ]
+    },
+    add_character( data ){
+      if( cs[ data.name ] ){
+        cs[ data.name ] += cs[ data.character ]
+      } else {
+        cs[ data.name ] = cs[ data.character ]
+      }
+    },
+    html( html ){
+      document.body.innerHTML += html
+    },
+    log: console.log,
+    msg( data ){
+      Qmsg[ data.type ]( data.msg )
+    },
+    $(){}
+  }, toFunc = function( key, object ){
+    functions[key] = function( data = {} ){
+      function dataify( json ){
+        for( let key of Object.keys( json ) ){
+          if( typeof json[key] == "object" ){
+            json[key] = dataify( json[key] )
+          } else if( typeof json[key] == "string" ){
+            json[key] = loadstring( json[key], data )
+          } else {
+            continue;
+          }
+        }
+        return json
+      }
+      for( let key of Object.keys( object ) ){
+        if( Array.isArray( object[key] ) ){
+          for( let dt of object[key]){
+            functions[key]( dataify( dt ) )
+          }
+        } else {
+          functions[key]( dataify( object[key] ) )
+        }
+      }
+    }
+  }, readHeader = function( data ){
+    addons.innerHTML += `<div class="addon">
+      <img class="icon" src="${data.icon}">
+      <span class="title">${data.name}</span>
+      <p>${data.description}</p>
+    </div>`
+  }
+  for( let key of Object.keys( mod )){
+    if( key == "header" ){
+      readHeader(mod[key])
+      continue
+    }
+    toFunc( key, mod[key] )
+  }
+  functions.main()
 }
 
 async function reimuc( rc ){
@@ -18,7 +121,7 @@ async function kogasac( kc ){
    Qmsg.info( "咱好恨呀~" )
 }
 
-async function main( mail, throle, text, btn, term, yibian, gc, chance ){
+async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, file, addons ){
    var $log = console.log, $err = console.error
    console.log = function( ...string ){
       $log( string.join() )
@@ -35,6 +138,7 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance ){
    }
    var nmap = (await (await fetch( "./name.json" )).json())
    var gifts = (await (await fetch( "./gifts.json" )).json())
+   cs = (await (await fetch( "./c.json" )).json())
    var today = formatDate( new Date() ).date
    if( isHoliday( today ) ){
      today += " , " + getFestival( today )
@@ -45,9 +149,6 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance ){
      icon.data = "[附件: {名称: \"" + gift.name + "\", 介绍: \"" + gift.description + "\"}]\n"
      icon.src = gift.icon
      icon.onclick = () => {
-       other += (icon.data = loadstring( icon.data, {
-         role: throle.value.trim()
-       }))
        Qmsg.info( gift.name + " +1" )
        let delate = icon.cloneNode()
        var newitem = new Audio()
@@ -65,9 +166,30 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance ){
          Qmsg.error( "最多携带20个礼物！" )
        } else {
          chance.appendChild( delate )
+         other += (icon.data = loadstring( icon.data, {
+           role: throle.value.trim()
+         }))
        }
      }
      gc.appendChild( icon )
+   }
+   upm.onclick = async function(){
+     try {
+       if( file.files[0] ){
+         var msg = Qmsg.loading( "Addon加载中" )
+         await modloader( file.files[0], addons, gc, chance )
+         var addsound = new Audio()
+         addsound.src = "./sounds/Item.mp3"
+         addsound.play()
+         msg.close()
+         Qmsg.success( "Addon加载成功！" )
+       } else {
+         Qmsg.error( "未选择文件" )
+       }
+     } catch( err ){
+       Qmsg.error( err.toString() )
+       console.error( err )
+     }
    }
    yibian.onclick = function(){
      throle.value = "博丽灵梦"
@@ -105,7 +227,7 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance ){
                body: JSON.stringify({
                   model: "gpt-4o-mini",
                   messages: [
-                     { role: "system", content: `你是幻想乡的${throle.value.trim()}，这里有一些来自外界的信需要你回复！可以使用颜文字！` },
+                     { role: "system", content: `你是幻想乡的${throle.value.trim()}，这里有一些来自外界的信需要你回复！可以适当使用颜文字！(补充设定:` + (cs[throle.value.trim()] || "") + ")" },
                      { role: "user", content: "[ " + today + " ]\n" + text.value.trim() + "\n" + other }
                   ]
                })
