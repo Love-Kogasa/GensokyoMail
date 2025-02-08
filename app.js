@@ -62,10 +62,39 @@ async function modloader( file, addons, glist, chance ){
         cs[ data.name ] = cs[ data.character ]
       }
     },
+    UI( data ){
+      var ele = document.createElement( data.type );
+      (data.type !== "input" && data.type !== "img") && (ele.textContent = data.text)
+      data.id && (ele.id = data.id)
+      for( let event of data.events ){
+        ele.addEventListener( event.event, () => {
+          functions[ event.func ]( publicValue )
+        })
+      }
+      document.getElementById( data.father || "addon-btns" ).appendChild( ele )
+    },
     html( html ){
       document.body.innerHTML += html
     },
     log: console.log,
+    global( data ){
+      if( data.type == "set" ){
+        publicValue[ data.name ] = data.value
+      } else if( data.type == "remove" ){
+        delete publicValue[ data.name ]
+      } else if( data.type == "add" ){
+        publicValue[ data.name ] += data.value
+      } else {
+        publicValue[ data.name ] = functions[data.value](publicValue)
+      }
+    },
+    script( data ){
+      var func = ( lv ) => eval.call( lv, data )
+      return func({
+        api: functions,
+        global: publicValue
+      })
+    },
     msg( data ){
       Qmsg[ data.type ]( data.msg )
     },
@@ -87,10 +116,10 @@ async function modloader( file, addons, glist, chance ){
       for( let key of Object.keys( object ) ){
         if( Array.isArray( object[key] ) ){
           for( let dt of object[key]){
-            functions[key]( dataify( dt ) )
+            functions[key]( { ...publicValue, ...dataify( dt ) } )
           }
         } else {
-          functions[key]( dataify( object[key] ) )
+          functions[key]( { ...publicValue, ...dataify( object[key] ) } )
         }
       }
     }
@@ -100,7 +129,7 @@ async function modloader( file, addons, glist, chance ){
       <span class="title">${data.name}</span>
       <p>${data.description}</p>
     </div>`
-  }
+  }, publicValue = {}
   for( let key of Object.keys( mod )){
     if( key == "header" ){
       readHeader(mod[key])

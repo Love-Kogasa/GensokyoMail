@@ -59,7 +59,19 @@ character: 设定字符串
 * msg: 当Addon被载入时输出的提示消息！ 
 type: 类型，可以是info, success, error, warning  
 msg: 消息字符串
+* UI: ui操作.  
+type: HTML元素类型(按钮是btn).  
+id?: 元素id.  
+father?: 父元素id，默认是addon-btns.  
+events: 事件列表，每个事件都应包含event即名称以及func即调用的函数
+* global: 公共变量.  
+type: 操作名称，可以是 set, remove, add, func  
+name: 变量名称  
+value: 操作值
 
 ### BetaApi
+* script: ScriptApi  
+this.api : api函数.  
+this.global: 公共变量表
 * html: 在页面追加Html
 * $: 编码内容(未完成)
