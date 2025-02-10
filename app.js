@@ -32,14 +32,14 @@ async function modloader( file, addons, glist, chance ){
           Qmsg.info( data.name + " +1" )
           let delate = gift.cloneNode()
           var newitem = new Audio()
-          newitem.src = "./sounds/Item.mp3"
+          newitem.src = "./assets/misc/sounds/Item.mp3"
           newitem.play()
           delate.onclick = () => {
             other = other.replace( gift.data + "\n", "" )
             Qmsg.info( data.name + " -1" )
             chance.removeChild( delate )
             var rm = new Audio()
-            rm.src = "./sounds/btn.mp3"
+            rm.src = "./assets/misc/sounds/btn.mp3"
             rm.play()
           }
           if( chance.children.length >= 20 ){
@@ -165,9 +165,9 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
       term.appendChild( font )
       term.appendChild( document.createElement( "br" ) )
    }
-   var nmap = (await (await fetch( "./name.json" )).json())
-   var gifts = (await (await fetch( "./gifts.json" )).json())
-   cs = (await (await fetch( "./c.json" )).json())
+   var nmap = (await (await fetch( "./assets/json/name.json" )).json())
+   var gifts = (await (await fetch( "./assets/json/gifts.json" )).json())
+   cs = (await (await fetch( "./assets/json/characters.json" )).json())
    var today = formatDate( new Date() ).date
    if( isHoliday( today ) ){
      today += " , " + getFestival( today )
@@ -181,14 +181,14 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
        Qmsg.info( gift.name + " +1" )
        let delate = icon.cloneNode()
        var newitem = new Audio()
-       newitem.src = "./sounds/Item.mp3"
+       newitem.src = "./assets/misc/sounds/Item.mp3"
        newitem.play()
        delate.onclick = () => {
          other = other.replace( icon.data, "" )
          Qmsg.info( gift.name + " -1" )
          chance.removeChild( delate )
          var rm = new Audio()
-         rm.src = "./sounds/btn.mp3"
+         rm.src = "./assets/misc/sounds/btn.mp3"
          rm.play()
        }
        if( chance.children.length >= 20 ){
@@ -208,7 +208,7 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
          var msg = Qmsg.loading( "Addon加载中" )
          await modloader( file.files[0], addons, gc, chance )
          var addsound = new Audio()
-         addsound.src = "./sounds/Item.mp3"
+         addsound.src = "./asstes/misc/sounds/Item.mp3"
          addsound.play()
          msg.close()
          Qmsg.success( "Addon加载成功！" )
@@ -250,7 +250,7 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
                method: "POST",
                headers: {
                   "Authorization": stringDecodeFrom9(
-                     await (await fetch( "baka1.txt" )).text() ),
+                     await (await fetch( "./assets/misc/baka1.txt" )).text() ),
                   "Content-Type": "application/json"
                },
                body: JSON.stringify({
@@ -272,7 +272,7 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
                   host: "mail.fds.moe",
                   from: "lovekogasa@mc.fds.moe",
                   pass: stringDecodeFrom9(
-                     await (await fetch( "baka2.txt" )).text() ),
+                     await (await fetch( "./assets/misc/baka2.txt" )).text() ),
                   to: mail.value.trim(),
                   title: "一封来自幻想乡 " + throle.value.trim() + " 的邮件",
                   content: reply.choices[0].message.content
