@@ -4,9 +4,9 @@
   "description": "给你喜欢的幻想乡角色发邮件！",
   "icons": [
     {
-      "src": "/assets/misc/appicon.png",
+      "src": "/assets/misc/favicon.ico",
       "sizes": "128x128",
-      "type": "png"
+      "type": "ico"
     }
   ],
   "background_color": "#fff",
