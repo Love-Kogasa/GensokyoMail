@@ -65,6 +65,8 @@ dialog {
    width: 30ch;
    background-color: #FFFFFF99;
    backdrop-filter: blur( 5px );
+   max-height: 80%;
+   overflow-y: auto;
 }
 
 input[type="text"]:focus, textarea:focus {
@@ -152,6 +154,7 @@ term {
   padding-right: 2%;
   padding-bottom: 0.2px;
   padding-top: 0.2px;
+  margin-bottom: 1ch;
 }
 
 .addon > .icon {

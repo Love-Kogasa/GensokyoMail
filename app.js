@@ -19,8 +19,8 @@ function readFile( file ){
   })
 }
 
-async function modloader( file, addons, glist, chance ){
-  var mod = JSON.parse( await readFile( file ) ), functions = {
+async function modloader( data, addons, glist, chance ){
+  var mod = JSON.parse( data ), functions = {
     new_gift( data ){
       // for( let key of Object.keys( datas )){
         // data = datas[key]
@@ -116,10 +116,10 @@ async function modloader( file, addons, glist, chance ){
       for( let key of Object.keys( object ) ){
         if( Array.isArray( object[key] ) ){
           for( let dt of object[key]){
-            functions[key]( { ...publicValue, ...dataify( dt ) } )
+            functions[key]( dataify( { ...publicValue, ...dt } ) )
           }
         } else {
-          functions[key]( { ...publicValue, ...dataify( object[key] ) } )
+          functions[key]( dataify( { ...publicValue, ...object[key] } ))
         }
       }
     }
@@ -150,7 +150,30 @@ async function kogasac( kc ){
    Qmsg.info( "咱好恨呀~" )
 }
 
-async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, file, addons ){
+async function uploadAddon( file ){
+  if( file.files[0] ){
+    var json = await readFile( file.files[0] )
+    try{ JSON.parse( json ) }catch(err){
+      Qmsg.error( "JSON语法错误！" )
+      throw err
+    }
+    var {id} = (await (await fetch( "https://api.youmu.ltd/new/addon", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "string=" + encodeURIComponent( json )
+    })).json())
+    if( id == 0 ){
+      Qmsg.success( "上传成功！详见下文控制台" )
+      console.log( "上传成功 (详见: https://gskm-addon.thmobile.xyz/market.html)" )
+    } else {
+      Qmsg.error( "API请求有误！！！" )
+    }
+  } else {
+    Qmsg.error( "未选择文件！" )
+  }
+}
+
+async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, file, addons, mark, addonSearch, uploadAddonBtn, uploadAddonSign ){
    var $log = console.log, $err = console.error
    console.log = function( ...string ){
       $log( string.join() )
@@ -167,6 +190,7 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
    }
    var nmap = (await (await fetch( "./name.json" )).json())
    var gifts = (await (await fetch( "./gifts.json" )).json())
+   var markDatas = (await (await fetch( "https://api.youmu.ltd/fetch/all" )).json())
    cs = (await (await fetch( "./c.json" )).json())
    var today = formatDate( new Date() ).date
    if( isHoliday( today ) ){
@@ -202,11 +226,49 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
      }
      gc.appendChild( icon )
    }
+   function loadMark( search = "" ){
+     mark.innerHTML = ""
+     for( let markAddon of markDatas ){
+       if( markAddon.passed && (markAddon.name + markAddon.description).includes( search ) ){
+         var addon = document.createElement( "div" ),
+           img = new Image(),
+           title = document.createElement( "span" ),
+           description = document.createElement( "p" )
+         img.className = "icon"
+         img.src = JSON.parse(markAddon.content).header.icon
+         title.className = "title"
+         title.textContent = markAddon.name
+         description.textContent = markAddon.description
+         addon.onclick = async () => {
+           await modloader( markAddon.content, addons, gc, chance )
+           var addsound = new Audio()
+           addsound.src = "./sounds/Item.mp3"
+           addsound.play()
+           Qmsg.success( "Addon加载成功！" )
+           addon.onclick = () => {
+             Qmsg.error( "您已经加载过本addon了" )
+           }
+         }
+         addon.className = "addon"
+         addon.appendChild( img )
+         addon.appendChild( title )
+         addon.appendChild( description )
+         mark.appendChild( addon )
+       }
+     }
+   }
+   loadMark()
+   addonSearch.oninput = function(){
+     loadMark( this.value )
+   }
+   uploadAddonBtn.onchange = function(){
+     uploadAddonSign.textContent = this.value || "未选择文件"
+   }
    upm.onclick = async function(){
      try {
        if( file.files[0] ){
          var msg = Qmsg.loading( "Addon加载中" )
-         await modloader( file.files[0], addons, gc, chance )
+         await modloader( await readFile( file.files[0] ), addons, gc, chance )
          var addsound = new Audio()
          addsound.src = "./sounds/Item.mp3"
          addsound.play()

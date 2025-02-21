@@ -14,22 +14,22 @@
     <script src="libs/template.js"></script>
     <script src="app.js"></script>
   </head>
-  <body onload="main( mail, thr, text, send, term, yibian, glist, chance, upm, file, addons )">
+  <body onload="main( mail, thr, text, send, term, yibian, glist, chance, upm, file, addons, addonMark, addonSearch, umtm, ufv )">
     <nav class="nav">☯ Gensokyo Mail</nav>
-    <div id="mods" style="display: none" class="dialog">
+    <div id="mods" style="display: none; padding: 1ch;" class="dialog">
       <h2>Addons</h2>
-      <p>加载或创作Addon，点击上传以加载<br>本功能为测试功能，不确保稳定性！</p>
+      <p>加载或创作Addon，点击上传以加载<br>本功能为测试功能，不确保稳定性！<br>如果您并不擅长编写代码，您可以通过可视化工具编写addon<br><a href="https://gskm-addon.thmobile.xyz/">https://gskm-addon.thmobile.xyz/</a> (by @MTR)<br><a href="https://gskm-addon.thmobile.xyz/">https://gskmam.thmobile.xyz/</a> (by @Love-Kogasa)</p>
       <h3>Addon市场</h3>
-      <p>GensokyoMail 官方addon市场！<br>
+      <p>GensokyoMail Addon市场！点击以加载Addon<br>
       您可以发布Addon到这里！</p>
-      <div style="height: 10ch; overflow: auto;">
-        敬请期待！
-        <!--<div class="addon">
-          <img class=icon src="Test/g.png">
-          <span class=title>标题</span>
-          <p>这里是addon的介绍</p>
-        </div>-->
+      <input placeholder="搜索" type="text" id="addonSearch">
+      <div style="height: 10ch; overflow: auto;" id="addonMark">
+        
       </div>
+      <input type="file" id="umtm" style="display: none;"><br>
+      <btn onclick="umtm.click();">选择File</btn> <span id="ufv">未上传文件</span> <br>
+      <btn onclick="uploadAddon( umtm )">确定提交Addon</btn>
+      <p>提交的addon需要一段时间进行审核！</p>
       <h3>激活的Addon</h3>
       <p>已激活的Addon在这里，重新加载以卸载所有模组!<br>部分Addon可能会因为新增HTML导致持续加载，<s>这是彼阳的bug</s></p>
       <div id="addons" style="height: 10ch; overflow: auto;"></div>
@@ -52,7 +52,7 @@
     </div>
     <br><br>
     <h2>幻想乡邮箱</h2>
-    <p>外界通往幻想乡的邮箱awa，通过邮箱向你喜欢的幻想乡角色发送邮件吧！<br>图标: Pixiv 110969269 by 那奈はな<br>反馈邮箱: 1983997053@qq.com</p>
+    <p>外界通往幻想乡的邮箱awa，通过邮箱向你喜欢的幻想乡角色发送邮件吧！<br>图标: Pixiv 110969269 by 那奈はな<br>反馈邮箱: 1983997053@qq.com<br>吐槽: 我代码写的跟屎一样啊... 有时间再重构吧<br>特别感谢 <a href="https://youmu.ltd/">MTR</a> 提供市场API支持</p>
     <btn onclick="( mods.style.display = 'block' )">AddonS / ModS</btn><br>
     <btn onclick="( gifts.style.display = 'block' )">礼物盒 全部免费哦 >_< </btn>
     <div id="addon-btns"></div>
