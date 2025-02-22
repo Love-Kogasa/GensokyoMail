@@ -66,7 +66,7 @@ async function modloader( data, addons, glist, chance ){
       var ele = document.createElement( data.type );
       (data.type !== "input" && data.type !== "img") && (ele.textContent = data.text)
       data.id && (ele.id = data.id)
-      for( let event of data.events ){
+      for( let event of (data.events || []) ){
         ele.addEventListener( event.event, () => {
           functions[ event.func ]( publicValue )
         })
@@ -89,7 +89,7 @@ async function modloader( data, addons, glist, chance ){
       }
     },
     script( data ){
-      var func = ( lv ) => eval.call( lv, data )
+      var func = ( lv ) => eval.call( lv, data.code )
       return func({
         api: functions,
         global: publicValue
@@ -190,7 +190,6 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
    }
    var nmap = (await (await fetch( "./name.json" )).json())
    var gifts = (await (await fetch( "./gifts.json" )).json())
-   var markDatas = (await (await fetch( "https://api.youmu.ltd/fetch/all" )).json())
    cs = (await (await fetch( "./c.json" )).json())
    var today = formatDate( new Date() ).date
    if( isHoliday( today ) ){
@@ -225,41 +224,6 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
        }
      }
      gc.appendChild( icon )
-   }
-   function loadMark( search = "" ){
-     mark.innerHTML = ""
-     for( let markAddon of markDatas.reverse() ){
-       if( markAddon.passed && (markAddon.name + markAddon.description).includes( search ) ){
-         var addon = document.createElement( "div" ),
-           img = new Image(),
-           title = document.createElement( "span" ),
-           description = document.createElement( "p" )
-         img.className = "icon"
-         img.src = JSON.parse(markAddon.content).header.icon
-         title.className = "title"
-         title.textContent = markAddon.name
-         description.textContent = markAddon.description
-         addon.onclick = async () => {
-           await modloader( markAddon.content, addons, gc, chance )
-           var addsound = new Audio()
-           addsound.src = "./sounds/Item.mp3"
-           addsound.play()
-           Qmsg.success( "Addon加载成功！" )
-           addon.onclick = () => {
-             Qmsg.error( "您已经加载过本addon了" )
-           }
-         }
-         addon.className = "addon"
-         addon.appendChild( img )
-         addon.appendChild( title )
-         addon.appendChild( description )
-         mark.appendChild( addon )
-       }
-     }
-   }
-   loadMark()
-   addonSearch.oninput = function(){
-     loadMark( this.value )
    }
    uploadAddonBtn.onchange = function(){
      uploadAddonSign.textContent = this.value || "未选择文件"
@@ -351,6 +315,42 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
             console.error( err )
          }
       }
+   }
+   var markDatas = (await (await fetch( "https://api.youmu.ltd/fetch/all" )).json())
+   function loadMark( search = "" ){
+     mark.innerHTML = ""
+     for( let markAddon of markDatas.reverse() ){
+       if( markAddon.passed && (markAddon.name + markAddon.description).includes( search ) ){
+         var addon = document.createElement( "div" ),
+           img = new Image(),
+           title = document.createElement( "span" ),
+           description = document.createElement( "p" )
+         img.className = "icon"
+         img.src = JSON.parse(markAddon.content).header.icon
+         title.className = "title"
+         title.textContent = markAddon.name
+         description.textContent = markAddon.description
+         addon.onclick = async () => {
+           await modloader( markAddon.content, addons, gc, chance )
+           var addsound = new Audio()
+           addsound.src = "./sounds/Item.mp3"
+           addsound.play()
+           Qmsg.success( "Addon加载成功！" )
+           addon.onclick = () => {
+             Qmsg.error( "您已经加载过本addon了" )
+           }
+         }
+         addon.className = "addon"
+         addon.appendChild( img )
+         addon.appendChild( title )
+         addon.appendChild( description )
+         mark.appendChild( addon )
+       }
+     }
+   }
+   loadMark()
+   addonSearch.oninput = function(){
+     loadMark( this.value )
    }
    Qmsg.success( "页面渲染完成，欢迎喵 ~" )
 }
