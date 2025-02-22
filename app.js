@@ -173,7 +173,7 @@ async function uploadAddon( file ){
   }
 }
 
-async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, file, addons, mark, addonSearch, uploadAddonBtn, uploadAddonSign ){
+async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, file, addons, mark, addonSearch, uploadAddonBtn, uploadAddonSign, adss ){
    var $log = console.log, $err = console.error
    console.log = function( ...string ){
       $log( string.join() )
@@ -351,6 +351,14 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
    loadMark()
    addonSearch.oninput = function(){
      loadMark( this.value )
+   }
+   var sites = (await (await fetch( "./friends.json" )).json())
+   for( let site of sites ){
+     adss.innerHTML += `<div class="addon" style="background-color: #FFFFFF55" onclick="window.location.href = '${site.url}'">
+       ${site.icon ? "<img src='" + site.icon + "'>" : ""}
+       <h3 class="title">${site.title}</h3>
+       <p>${site.description}</p>
+     </div>`
    }
    Qmsg.success( "页面渲染完成，欢迎喵 ~" )
 }

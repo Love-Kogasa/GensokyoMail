@@ -14,8 +14,19 @@
     <script src="libs/template.js"></script>
     <script src="app.js"></script>
   </head>
-  <body onload="main( mail, thr, text, send, term, yibian, glist, chance, upm, file, addons, addonMark, addonSearch, umtm, ufv )">
+  <body onload="main( mail, thr, text, send, term, yibian, glist, chance, upm, file, addons, addonMark, addonSearch, umtm, ufv, adss )">
     <nav class="nav">☯ Gensokyo Mail</nav>
+    <div id="ads" class="dialog" style="display: none; padding: 1ch;">
+      <h2>来看看这些吧！</h2>
+      <p>为什么要开此页(?): 因为呢，其实吧一个项目的宣传非常不容易其实，特别是对于不懂这方面的开发者，我这个页面火了也只是因为运气好，因此我决定在幻想乡邮箱中添加一个专门的宣传页，让开发者们辛苦创作的内容被大众所看到 ！<br>本宣传栏免费向各位开发者们提供！有意者请致信. 1983997053@qq.com</p>
+      <br><hr><br>
+      <div id="adss" style="height: 10ch; overflow: auto;">
+      </div>
+      <br><hr><br>
+      <div align="right">
+        <btn onclick="ads.style.display = 'none'">关闭</btn>
+      </div>
+    </div>
     <div id="mods" style="display: none; padding: 1ch;" class="dialog">
       <h2>Addons</h2>
       <p>加载或创作Addon，点击上传以加载<br>本功能为测试功能，不确保稳定性！<br>如果您并不擅长编写代码，您可以通过可视化工具编写addon<br><a href="https://gskm-addon.thmobile.xyz/">https://gskm-addon.thmobile.xyz/</a> (by @MTR)<br><a href="https://gskmam.thmobile.xyz/">https://gskmam.thmobile.xyz/</a> (by @Love-Kogasa)</p>
@@ -54,7 +65,8 @@
     <h2>幻想乡邮箱</h2>
     <p>外界通往幻想乡的邮箱awa，通过邮箱向你喜欢的幻想乡角色发送邮件吧！<br>图标: Pixiv 110969269 by 那奈はな<br>反馈邮箱: 1983997053@qq.com<br>吐槽: 我代码写的跟屎一样啊... 有时间再重构吧<br>特别感谢 <a href="https://youmu.ltd/">MTR</a> 提供市场API支持</p>
     <btn onclick="( mods.style.display = 'block' )">AddonS / ModS</btn><br>
-    <btn onclick="( gifts.style.display = 'block' )">礼物盒 全部免费哦 >_< </btn>
+    <btn onclick="( gifts.style.display = 'block' )">礼物盒 全部免费哦 >_< </btn><br>
+    <btn onclick="ads.style.display = 'block'">看看这些项目吧</btn>
     <div id="addon-btns"></div>
     <input type="text" id="mail" placeholder="你的邮箱">
     <input type="text" id="thr" placeholder="车万角色名称">
