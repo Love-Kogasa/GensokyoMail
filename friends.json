@@ -1,3 +1,4 @@
 [
-  { "title": "Gensokyo!", "description": "欢迎来到幻想乡论坛！", "url": "https://gensokyo.su/" }
+  { "title": "Gensokyo!", "description": "欢迎来到幻想乡论坛！", "url": "https://gensokyo.su/" },
+  { "title": "MirrorLine2", "description": "MirrorLine的Action版本，搜索引擎(SearXNG)+Proxy(ProxyPRO)，向网站连接超时说 bye！", "url": "https://mirror-line.lapis-net.top/" }
 ]
