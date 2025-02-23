@@ -98,6 +98,14 @@ async function modloader( data, addons, glist, chance ){
     msg( data ){
       Qmsg[ data.type ]( data.msg )
     },
+    sound( data ){
+      new Audio( data.src ).onloadstart = function(){
+        data.volume && (this.volume = data.volume)
+        data.loop && (this.loop = data.loop)
+        data.quick && (this.playbackRate = data.quick)
+        this.play()
+      }
+    },
     $(){}
   }, toFunc = function( key, object ){
     functions[key] = function( data = {} ){
@@ -355,7 +363,7 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
    var sites = (await (await fetch( "./friends.json" )).json())
    for( let site of sites ){
      adss.innerHTML += `<div class="addon" style="background-color: #FFFFFF55" onclick="window.location.href = '${site.url}'">
-       ${site.icon ? "<img src='" + site.icon + "'>" : ""}
+       ${site.icon ? "<img src='" + site.icon + "' class='icon'>" : ""}
        <h3 class="title">${site.title}</h3>
        <p>${site.description}</p>
      </div>`

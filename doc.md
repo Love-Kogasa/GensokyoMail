@@ -68,9 +68,16 @@ events: 事件列表，每个事件都应包含event即名称以及func即调用
 type: 操作名称，可以是 set, remove, add, func  
 name: 变量名称  
 value: 操作值
+* sound: 播放声音.  
+src: 音频文件URL  
+volume: 声音大小  
+quick: 速度.  
+loop: 是否循环播放(布尔)
+
 
 ### BetaApi
 * script: ScriptApi  
+code: 代码(变量如下↓)  
 this.api : api函数.  
 this.global: 公共变量表
 * html: 在页面追加Html
