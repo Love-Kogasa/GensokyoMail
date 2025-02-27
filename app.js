@@ -309,7 +309,7 @@ async function main( mail, throle, text, btn, term, yibian, gc, chance, upm, fil
                      await (await fetch( "baka2.txt" )).text() ),
                   to: mail.value.trim(),
                   title: "一封来自幻想乡 " + throle.value.trim() + " 的邮件",
-                  content: reply.choices[0].message.content
+                  content: reply.choices[0].message.content + "\n\n\n本邮件来自开源项目: LoveKogasa/GensokyoMail\n由于其无需注册的特点，可能会被不法人士滥用(比如推销VPN等)，滥用举报邮箱: 1983997053@qq.com\n咱对此也没办法(悲"
                })
             })).json()
             msg.close()
