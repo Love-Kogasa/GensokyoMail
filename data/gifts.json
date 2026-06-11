@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Bomb",
+    "description": "一打开就会爆炸的小炸弹",
+    "ai_hint": "",
+    "icon": "assets/gifts/bomb.png"
+  },
+  {
+    "name": "蒜",
+    "description": "一头蒜",
+    "ai_hint": "吸血鬼不能吃大蒜，但没必要主动提起",
+    "icon": "assets/gifts/garlic.png"
+  },
+  {
+    "name": "啤酒",
+    "description": "一杯啤酒",
+    "ai_hint": "幻想乡的居民都很喜欢喝酒",
+    "icon": "assets/gifts/beer.png"
+  },
+  {
+    "name": "饺子",
+    "description": "一盘热气腾腾的饺子",
+    "ai_hint": "",
+    "icon": "assets/gifts/cn_dumplings.png"
+  }
+]

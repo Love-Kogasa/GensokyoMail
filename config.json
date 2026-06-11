@@ -1,0 +1,37 @@
+{
+  "api": {
+    "openai": {
+      "endpoint": "https://api.openai-hk.com/v1/chat/completions",
+      "model": "gpt-4o-mini"
+    },
+    "smtp": {
+      "endpoint": "https://api.mu-jie.cc/email",
+      "host": "mail.fds.moe",
+      "from": "lovekogasa@mc.fds.moe"
+    },
+    "market": {
+      "fetch": "https://api.youmu.ltd/fetch/all",
+      "upload": "https://api.youmu.ltd/new/addon"
+    }
+  },
+  "limits": {
+    "maxGifts": 20,
+    "requestTimeout": 30000
+  },
+  "ui": {
+    "theme": {
+      "primary": "#FF4646",
+      "primaryLight": "#FF5E5E",
+      "primaryDark": "#E53E3E"
+    },
+    "features": {
+      "kogasaEasterEgg": true,
+      "reimuEasterEgg": true,
+      "holidayDetection": true
+    }
+  },
+  "addons": {
+    "enableScriptAPI": false,
+    "enableHTMLInjection": false
+  }
+}
