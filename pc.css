@@ -1,26 +1,25 @@
 /* ===== 桌面端 (≥1024px) 响应式覆盖 ===== */
 @media only screen and (min-width: 1024px) {
+  /* 小伞 —— 桌面端露多一点点 */
   #kogasa {
-    top: 6%;
-    left: -5%;
-    transform: rotate(10deg) scale(0.6);
-    filter: drop-shadow(0.5em 0.5em 0px rgba(239, 86, 255, 0.33));
+    transform: translate(25%, 12%) rotate(-6deg) scale(0.75);
   }
-  #reimu {
-    top: -20%;
-    left: 95%;
-    transform: rotate(-30deg) scale(0.6);
-    filter: drop-shadow(0.5em 0.5em 0px rgba(255, 70, 70, 0.33));
+  #kogasa:hover {
+    transform: translate(10%, 8%) rotate(-2deg) scale(0.75);
   }
   #kogasa:active {
-    top: 7%;
-    left: -5%;
-    transform: rotate(10deg) scale(0.6);
+    transform: translate(14%, 10%) rotate(-4deg) scale(0.75);
+  }
+
+  /* 灵梦 —— 桌面端露多一点点 */
+  #reimu {
+    transform: translate(42%, 0) rotate(-12deg) scale(0.75);
+  }
+  #reimu:hover {
+    transform: translate(20%, 0) rotate(-6deg) scale(0.75);
   }
   #reimu:active {
-    top: -21%;
-    left: 95%;
-    transform: rotate(-30deg) scale(0.6);
+    transform: translate(24%, 2%) rotate(-8deg) scale(0.75);
   }
 
   /* 对话框在桌面端稍宽 */
