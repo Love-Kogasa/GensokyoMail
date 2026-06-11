@@ -156,33 +156,33 @@ p {
 
 /* ===== 角色立绘彩蛋 ===== */
 
-/* 小伞 —— 右下角探出头 */
+/* 小伞 —— 左下角探出头 */
 #kogasa {
   display: block;
   position: fixed;
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 5;
   bottom: 0;
-  right: 0;
-  transform: translate(35%, 15%) rotate(-8deg);
-  filter: drop-shadow(-0.3em 0.3em 6px rgba(239, 86, 255, 0.3));
+  left: 0;
+  transform: translate(-38%, 15%) rotate(8deg);
+  filter: drop-shadow(0.3em 0.3em 6px rgba(239, 86, 255, 0.3));
   cursor: pointer;
   pointer-events: auto;
 }
 #kogasa:hover {
-  transform: translate(18%, 10%) rotate(-3deg);
+  transform: translate(-18%, 10%) rotate(3deg);
 }
 #kogasa:active {
-  transform: translate(22%, 12%) rotate(-5deg);
+  transform: translate(-22%, 12%) rotate(5deg);
 }
 
-/* 灵梦 —— 右侧中上方飘着 */
+/* 灵梦 —— 右上角飘着 */
 #reimu {
   display: block;
   position: fixed;
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 5;
-  top: 15%;
+  top: 4%;
   right: 0;
   transform: translate(50%, 0) rotate(-15deg);
   filter: drop-shadow(-0.3em 0.3em 6px rgba(255, 70, 70, 0.3));
