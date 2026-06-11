@@ -1,0 +1,18 @@
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Cloudflare
+.wrangler/
+
+# 这些本地文件需要自己配，不要提交
+# baka1.txt 和 baka2.txt 是⑨彩蛋，不影响安全 (笑)
+# 但 fork 后记得换成自己的 Key！

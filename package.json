@@ -1,0 +1,16 @@
+{
+  "name": "gensokyo-mail",
+  "version": "2.0.0",
+  "description": "外界通往幻想乡的邮箱 —— 用 GPT 给你喜欢的车万角色写信吧 awa",
+  "homepage": "https://love-kogasa.github.io/GensokyoMail",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Love-Kogasa/GensokyoMail"
+  },
+  "author": "Love-Kogasa",
+  "license": "MIT",
+  "keywords": ["touhou", "gensokyo", "email", "ai", "fan-project", "东方"],
+  "scripts": {
+    "start": "echo '直接打开 index.html 就行啦~'"
+  }
+}

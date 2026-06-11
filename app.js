@@ -1,3 +1,19 @@
+/**
+ * ⚠️ DEPRECATED — v2.0 重构后此文件不再使用
+ *
+ * 所有功能已迁移到 src/ 目录下的 ES Module 类中：
+ *   src/main.js  — GensokyoMail 主类（入口）
+ *   src/mail-sender.js  — 邮件发送
+ *   src/addon-loader.js — Addon 加载
+ *   src/gift-manager.js — 礼物管理
+ *   ... 等等
+ *
+ * 此文件保留作为旧版参考，新代码请改 src/ 里的文件。
+ * 如果新架构有问题需要回退，删掉 index.html 里的 <script type="module">
+ * 并把老 <script src="app.js"> 加回去即可。
+ * ================================================================
+ */
+
 // shit hill :(
 var other = ""
 var cs = {}

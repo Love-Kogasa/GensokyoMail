@@ -1,152 +1,139 @@
+/* ===== Tailwind 无法轻松表达的自定义样式 ===== */
+
+/* 全局过渡 */
 * {
-   transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
-.nav {
-   background-color: #FF4646;
-   box-shadow: -5px 5px 1em rgba( 100, 100, 100, 0.5 );
-   position: fixed;
-   display: block;
-   width: 120%;
-   padding: 2%;
-   font-size: 120%;
-   top: 0px; left: 0px;
-   z-index: 2;
+/* ===== 毛玻璃面板 ===== */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(var(--glass-blur, 8px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 8px));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
-body {
-   background-color: #F2F2F2;
-   padding: 5%;
+/* 毛玻璃对话框加强 */
+.dialog.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(calc(var(--glass-blur, 8px) * 1.5));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur, 8px) * 1.5));
 }
 
-btn {
-   background-color: #FF4646;
-   border-radius: 5px;
-   display: inline-block;
-   min-width: 20%;
-   text-align: center;
-   padding: 1.5%;
+/* 夜间模式适配：玻璃面板变暗 */
+.night-mode .glass-panel,
+.night-mode.dialog {
+  background: rgba(30, 30, 50, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #ddd;
+}
+.night-mode p {
+  color: #bbb;
+}
+.night-mode h1, .night-mode h2, .night-mode h3 {
+  border-bottom-color: rgba(255, 200, 200, 0.4);
+  color: #eee;
+}
+.night-mode .gensokyo-input {
+  background: rgba(255, 255, 255, 0.1);
+  color: #eee;
+  border-color: rgba(255, 70, 70, 0.5);
+}
+.night-mode term,
+.night-mode .gensokyo-terminal {
+  border-left-color: rgba(255, 100, 100, 0.6);
 }
 
+/* 按钮组件 */
+.gensokyo-btn {
+  background-color: #FF4646;
+  border-radius: 5px;
+  display: inline-block;
+  min-width: 20%;
+  text-align: center;
+  padding: 1.5%;
+  border: none;
+  color: #000;
+  cursor: pointer;
+}
+.gensokyo-btn:active {
+  background-color: #FF5E5E;
+}
+
+/* 输入框组件 */
+.gensokyo-input {
+  border: 1.5px solid #FF4646;
+  border-radius: 10px;
+  display: block;
+  width: 90%;
+  padding: 1.5%;
+  margin: 7px;
+}
+.gensokyo-input:focus {
+  outline: none;
+}
+
+/* 终端组件 */
+.gensokyo-terminal {
+  display: block;
+  width: 90%;
+  height: 400px;
+  overflow-x: auto;
+  overflow-y: auto;
+  color: #FFF;
+  background-color: #000;
+  padding: 2%;
+  border-left: 2.5px solid #FF4646;
+  margin: 5px;
+}
+
+/* 标题底线 */
 h1, h2, h3, hr {
-   margin: 0px;
-   margin-bottom: 5px;
-   border: none;
-   border-bottom: 2px solid #FF4646;
+  margin: 0;
+  margin-bottom: 5px;
+  border: none;
+  border-bottom: 2px solid #FF4646;
 }
 
 p {
-   margin: 0px;
-   margin-bottom: 10px;
-   font-size: 90%;
-   color: #515151;
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 90%;
+  color: #515151;
 }
 
-input[type="text"], textarea, dialog, .dialog {
-   border: 1.5px solid #FF4646;
-   border-radius: 10px;
-   display: block;
-   width: 90%;
-   padding: 1.5%;
-   margin: 7px;
-}
-
-dialog {
-   width: 90%;
-   box-shadow: 0px 0px 20em #000;
-   padding: 3%;
-}
-
+/* 对话框浮层 */
 .dialog {
-   position: fixed;
-   z-index: 10;
-   top: 10%;
-   left: 2ch;
-   width: 30ch;
-   background-color: #FFFFFF99;
-   backdrop-filter: blur( 5px );
-   max-height: 80%;
-   overflow-y: auto;
+  position: fixed;
+  z-index: 50;
+  top: 10%;
+  left: 2ch;
+  width: 30ch;
+  background-color: rgba(255,255,255,0.6);
+  backdrop-filter: blur(5px);
+  max-height: 80%;
+  overflow-y: auto;
+  border: 1.5px solid #FF4646;
+  border-radius: 10px;
+  padding: 3%;
+  box-shadow: 0 0 20em rgba(0,0,0,0.15);
 }
 
-input[type="text"]:focus, textarea:focus {
-   outline: none;
-}
-
-btn:active, .nav:active {
-   background-color: #FF5E5E;
-}
-
-#text {
-   height: 300px;
-}
-
-term {
-   display: block;
-   width: 90%;
-   height: 400px;
-   overflow-x: auto;
-   overflow-y: auto;
-   color: #FFF;
-   background-color: #000;
-   padding: 2%;
-   border-left: 2.5px solid #FF4646;
-   margin: 5px;
-}
-
-#kogasa, #reimu, #flan {
-   display: block;
-   position: fixed;
-   transition: all 0.1s ease;
-   transform-origin: left bottom;
-   transform: rotate(15deg);
-   z-index: 5;
-   top: 75%;
-   left: -15%;
-   filter: drop-shadow( 0.5em 0.5em 0px #EF56FF55 );
-}
-
-#kogasa:active {
-   top: 76%;
-}
-
-#reimu {
-   top: 45%;
-   left: 100%;
-   transform: rotate(-40deg);
-   filter: drop-shadow( 0.5em 0.5em 0px #FF464655 );
-}
-
-#reimu:active {
-   top: 44%;
-}
-
-#flan {
-   top: -520px;
-   left: 100%;
-   transform: rotate(-190deg);
-   z-index: 1;
-   filter: drop-shadow( -0.5em -0.5em 0px #FF794655 );
-}
-
-#flan:hover {
-   top: -350px;
-}
-
+/* 礼物图标 */
 .gift {
-   width: 5ch;
-   height: 5ch;
-   border: 2px solid #FF4646;
-   border-radius: 10%;
-   filter: drop-shadow( 0px 0px 5px #FF4646 );
-   margin-right: 0.5ch;
+  width: 5ch;
+  height: 5ch;
+  border: 2px solid #FF4646;
+  border-radius: 10%;
+  filter: drop-shadow(0px 0px 5px #FF4646);
+  margin-right: 0.5ch;
+  cursor: pointer;
 }
 
-/*#kogasa:hover {
-   transform: rotate(5deg);
-   left: 2%;
-}*/
-
+/* Addon 卡片 */
 .addon {
   background-color: #FF4646;
   border-radius: 5px;
@@ -155,15 +142,77 @@ term {
   padding-bottom: 0.2px;
   padding-top: 0.2px;
   margin-bottom: 1ch;
+  cursor: pointer;
 }
-
 .addon > .icon {
   height: 5ch;
   border-radius: 2px;
 }
-
 .addon > .title {
   font-size: 120%;
-  margin: 0px;
+  margin: 0;
   display: block;
+}
+
+/* ===== 角色立绘彩蛋 ===== */
+
+/* 小伞 —— 左下角探出头 */
+#kogasa {
+  display: block;
+  position: fixed;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 5;
+  bottom: 0;
+  left: 0;
+  transform: translate(-38%, 15%) rotate(8deg);
+  filter: drop-shadow(0.3em 0.3em 6px rgba(239, 86, 255, 0.3));
+  cursor: pointer;
+  pointer-events: auto;
+}
+#kogasa:hover {
+  transform: translate(-18%, 10%) rotate(3deg);
+}
+#kogasa:active {
+  transform: translate(-22%, 12%) rotate(5deg);
+}
+
+/* 灵梦 —— 右上角飘着 */
+#reimu {
+  display: block;
+  position: fixed;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 5;
+  top: 4%;
+  right: 0;
+  transform: translate(50%, 0) rotate(-15deg);
+  filter: drop-shadow(-0.3em 0.3em 6px rgba(255, 70, 70, 0.3));
+  cursor: pointer;
+  pointer-events: auto;
+}
+#reimu:hover {
+  transform: translate(28%, 0) rotate(-8deg);
+}
+#reimu:active {
+  transform: translate(32%, 2%) rotate(-10deg);
+}
+
+/* ===== 芙兰（隐藏中，顶部探出） ===== */
+#flan {
+  display: block;
+  position: fixed;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -85%) rotate(5deg);
+  filter: drop-shadow(0 0.3em 6px rgba(255, 121, 70, 0.3));
+  cursor: pointer;
+}
+#flan:hover {
+  transform: translate(-50%, -55%) rotate(2deg);
+}
+
+/* 正文输入框 */
+#text {
+  height: 300px;
 }
