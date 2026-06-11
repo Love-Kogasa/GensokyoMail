@@ -5,6 +5,48 @@
   transition: all 0.3s ease-in-out;
 }
 
+/* ===== 毛玻璃面板 ===== */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(var(--glass-blur, 8px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 8px));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* 毛玻璃对话框加强 */
+.dialog.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(calc(var(--glass-blur, 8px) * 1.5));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur, 8px) * 1.5));
+}
+
+/* 夜间模式适配：玻璃面板变暗 */
+.night-mode .glass-panel,
+.night-mode.dialog {
+  background: rgba(30, 30, 50, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #ddd;
+}
+.night-mode p {
+  color: #bbb;
+}
+.night-mode h1, .night-mode h2, .night-mode h3 {
+  border-bottom-color: rgba(255, 200, 200, 0.4);
+  color: #eee;
+}
+.night-mode .gensokyo-input {
+  background: rgba(255, 255, 255, 0.1);
+  color: #eee;
+  border-color: rgba(255, 70, 70, 0.5);
+}
+.night-mode term,
+.night-mode .gensokyo-terminal {
+  border-left-color: rgba(255, 100, 100, 0.6);
+}
+
 /* 按钮组件 */
 .gensokyo-btn {
   background-color: #FF4646;

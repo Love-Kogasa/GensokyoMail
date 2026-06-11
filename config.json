@@ -33,5 +33,48 @@
   "addons": {
     "enableScriptAPI": false,
     "enableHTMLInjection": false
+  },
+  "background": {
+    "enabled": true,
+    "blur": "8px",
+    "timeBased": true,
+    "periods": {
+      "dawn": {
+        "start": 5, "end": 7,
+        "name": "黎明",
+        "gradient": "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)",
+        "image": ""
+      },
+      "morning": {
+        "start": 7, "end": 11,
+        "name": "早晨",
+        "gradient": "linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)",
+        "image": ""
+      },
+      "noon": {
+        "start": 11, "end": 14,
+        "name": "正午",
+        "gradient": "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+        "image": ""
+      },
+      "afternoon": {
+        "start": 14, "end": 17,
+        "name": "午后",
+        "gradient": "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+        "image": ""
+      },
+      "evening": {
+        "start": 17, "end": 20,
+        "name": "黄昏",
+        "gradient": "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+        "image": ""
+      },
+      "night": {
+        "start": 20, "end": 5,
+        "name": "夜晚",
+        "gradient": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+        "image": ""
+      }
+    }
   }
 }

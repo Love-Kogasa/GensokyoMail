@@ -10,6 +10,7 @@ import { AddonLoader } from './addon-loader.js';
 import { AddonMarket } from './addon-market.js';
 import { MailSender } from './mail-sender.js';
 import { UIController } from './ui-controller.js';
+import { BackgroundManager } from './background.js';
 
 export class GensokyoMail {
   constructor() {
@@ -19,6 +20,9 @@ export class GensokyoMail {
     this.addonMarket = null;
     this.mailSender = new MailSender();
     this.uiController = null;
+
+    // 背景管理
+    this.background = null;
 
     // 全局变量（保持与旧版兼容，Addon 可能引用）
     window.other = '';
@@ -40,18 +44,22 @@ export class GensokyoMail {
       return;
     }
 
-    // ③ 初始化 Logger（劫持 console 到终端）
+    // ③ 启动背景系统（毛玻璃 + 时间渐变）
+    this.background = new BackgroundManager();
+    this.background.start();
+
+    // ④ 初始化 Logger（劫持 console 到终端）
     this.logger = new Logger(els.term);
 
-    // ④ 初始化 AddonLoader
+    // ⑤ 初始化 AddonLoader
     this.addonLoader = new AddonLoader(els.addonsPanel, els.giftList, els.chance);
     this.addonMarket = new AddonMarket(els.markContainer, els.addonSearch, this.addonLoader);
 
-    // ⑤ 设置 UI 事件
+    // ⑥ 设置 UI 事件
     this.uiController = new UIController(els);
     this.uiController.bindAll();
 
-    // ⑥ 并行加载所有数据
+    // ⑦ 并行加载所有数据
     console.log('⑨ 正在连接幻想乡...');
     const loadingOverlay = document.getElementById('loading-overlay');
     if (loadingOverlay) loadingOverlay.style.display = 'flex';
@@ -65,21 +73,21 @@ export class GensokyoMail {
         fetch('./data/friends.json').then(r => r.json()).catch(() => [])
       ]);
 
-      // ⑦ 初始化角色数据库
+      // ⑧ 初始化角色数据库
       this.characterDB.init(nmap);
       window.cs = csData;
 
-      // ⑧ 渲染礼物
+      // ⑨ 渲染礼物
       for (const gift of gifts) {
         const icon = GiftManager.createElement(gift, els.chance, null, 'other');
         els.giftList.appendChild(icon);
       }
 
-      // ⑨ 渲染市场
+      // ⑩ 渲染市场
       this.addonMarket.render();
       this.addonMarket.bindSearch();
 
-      // ⑩ 渲染友链
+      // ⑪ 渲染友链
       for (const site of sites) {
         const div = document.createElement('div');
         div.className = 'addon';
@@ -109,7 +117,7 @@ export class GensokyoMail {
         els.adsContainer.appendChild(div);
       }
 
-      // ⑪ 日期处理
+      // ⑫ 日期处理
       const today = window.formatDate?.(new Date()).date ?? '';
       if (Config.get('ui.features.holidayDetection') && window.isHoliday?.(today)) {
         this.#todayStr = today + ' , ' + (window.getFestival?.(today) ?? '');
@@ -117,10 +125,10 @@ export class GensokyoMail {
         this.#todayStr = today;
       }
 
-      // ⑫ 绑定核心发送事件
+      // ⑬ 绑定核心发送事件
       this.#bindSendFlow(els);
 
-      // ⑬ 绑定 Addon 上传
+      // ⑭ 绑定 Addon 上传
       this.#bindUploadFlow(els);
 
       console.log('页面渲染完成，欢迎来到幻想乡 ~');
